@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>링크나무 — 송철수</title>
+  <meta name="description" content="내 모든 링크를 한 페이지에. 링크나무로 공유하세요." />
+
+  <!-- 공유 시 미리보기 -->
+  <meta property="og:title" content="링크나무 — 송철수" />
+  <meta property="og:description" content="내 모든 링크를 한 페이지에." />
+  <meta property="og:type" content="profile" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- 스크린리더 사용자를 위한 본문 바로가기 -->
+  <a class="skip-link" href="#links">링크 목록으로 건너뛰기</a>
+
+  <main class="page">
+    <!-- ===== 프로필 ===== -->
+    <header class="profile">
+      <img
+        id="profile-photo"
+        class="profile__photo"
+        src=""
+        alt="송철수 프로필 사진"
+        width="160"
+        height="213"
+      />
+      <h1 id="profile-name" class="profile__name">송철수</h1>
+      <p id="profile-bio" class="profile__bio"></p>
+    </header>
+
+    <!-- ===== 링크 목록 ===== -->
+    <!--
+      실제 카드는 js/app.js 가 그려 넣습니다.
+      비어 있는 <ul> 로 두는 이유: 사용자 입력을 innerHTML 로 넣지 않고
+      createElement/textContent 로만 조립해 XSS 를 원천 차단하기 위함입니다.
+    -->
+    <nav id="links" class="links" aria-label="링크 목록">
+      <ul id="link-list" class="link-list"></ul>
+    </nav>
+
+    <!-- 링크가 하나도 없을 때 -->
+    <p id="empty-state" class="empty-state" hidden>아직 등록된 링크가 없습니다.</p>
+
+    <footer class="footer">
+      <button id="share-button" class="share-button" type="button">
+        이 페이지 공유하기
+      </button>
+      <p class="footer__brand">🌳 링크나무</p>
+    </footer>
+  </main>
+
+  <!-- 알림 메시지 (공유 완료 등) -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!--
+    ES 모듈(type="module") 을 쓰지 않는 이유:
+    file:// 로 열면 CORS 정책 때문에 import 가 차단됩니다.
+    클래식 스크립트로 순서대로 불러옵니다.
+  -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

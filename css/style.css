@@ -1,0 +1,291 @@
+/* =========================================================
+   링크나무 — 스타일
+   wireframe.png 기준: 세로 1단 레이아웃
+   (프로필 사진 → 이름 → 링크 카드 목록)
+   PRD 요구사항에 따라 모바일 우선으로 작성했습니다.
+   ========================================================= */
+
+:root {
+  --bg: #f3f6fb;
+  --surface: #ffffff;
+  --text: #1a2233;
+  --text-muted: #6b7688;
+  --border: #dfe5ef;
+  --accent: #4f7cf7;
+
+  --card-radius: 14px;
+  --shadow-sm: 0 1px 2px rgb(16 24 40 / 0.06);
+  --shadow-md: 0 6px 18px rgb(16 24 40 / 0.1);
+
+  --page-width: 480px;
+}
+
+/* ===== 리셋 ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Pretendard", "Noto Sans KR", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+
+  /* 와이어프레임의 세로 프레임처럼 가운데 정렬 */
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+/* ===== 접근성: 건너뛰기 링크 ===== */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* ===== 페이지 컨테이너 ===== */
+.page {
+  width: 100%;
+  max-width: var(--page-width);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== 프로필 ===== */
+.profile {
+  text-align: center;
+  padding: 32px 0 28px;
+}
+
+/* 와이어프레임에서 프로필 사진은 원형이 아니라 모서리가 둥근 사각형입니다. */
+.profile__photo {
+  width: 160px;
+  height: 213px;
+  object-fit: cover;
+  border-radius: 28px;
+  background: var(--border);
+  box-shadow: var(--shadow-md);
+  display: block;
+  margin: 0 auto 24px;
+}
+
+.profile__name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.profile__bio {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* 소개가 비어 있으면 여백이 생기지 않도록 처리 */
+.profile__bio:empty {
+  display: none;
+}
+
+/* ===== 링크 목록 ===== */
+.link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px 18px;
+  min-height: 58px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
+
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.link-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.link-card:active {
+  transform: translateY(0);
+}
+
+.link-card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.link-card__emoji {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.link-card__label {
+  flex: 1;
+  /* 긴 제목이 카드를 밀어내지 않도록 */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===== 빈 상태 ===== */
+.empty-state {
+  margin: 32px 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ===== 푸터 ===== */
+.footer {
+  margin-top: auto;
+  padding: 40px 0 24px;
+  text-align: center;
+}
+
+.share-button {
+  padding: 11px 22px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.share-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.share-button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.footer__brand {
+  margin: 20px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ===== 토스트 ===== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 12px);
+
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: #1a2233;
+  color: #fff;
+  font-size: 0.9rem;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ===== 데스크톱 ===== */
+@media (min-width: 640px) {
+  body {
+    padding: 48px 24px;
+  }
+
+  .profile__photo {
+    width: 176px;
+    height: 235px;
+  }
+
+  .profile__name {
+    font-size: 1.75rem;
+  }
+}
+
+/* ===== 다크 모드 ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #11151d;
+    --surface: #1a202b;
+    --text: #e8ecf3;
+    --text-muted: #98a2b3;
+    --border: #2a3242;
+    --accent: #7d9dfb;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow-md: 0 6px 18px rgb(0 0 0 / 0.4);
+  }
+
+  .toast {
+    background: #e8ecf3;
+    color: #11151d;
+  }
+}
+
+/* ===== 모션 최소화 선호 ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .link-card:hover {
+    transform: none;
+  }
+}
